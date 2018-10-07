@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">MarsPlay Demo</string>
+    <string name="capture_button">Capture Image From Camera</string>
+    <string name="upload_from_gallery">Upload Image From Gallery</string>
+    <string name="upload_from_camera">Upload Image From Camera</string>
+    <string name="View_uploaded_image">uploaded ImageList</string>
+</resources>
