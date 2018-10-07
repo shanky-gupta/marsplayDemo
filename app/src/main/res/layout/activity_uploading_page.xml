@@ -16,19 +16,12 @@
 
     <Button
         android:id="@+id/uploadButton"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:text="Upload"
         android:layout_alignParentBottom="true"/>
 
-    <Button
-        android:id="@+id/cropButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:text="Crop"
-        android:layout_alignParentBottom="true"/>
 
     <ProgressBar
         android:id="@+id/progressBar"

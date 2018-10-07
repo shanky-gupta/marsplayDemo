@@ -32,7 +32,7 @@ import marsplay.com.database.DataBaseHandler;
 public class UploadingPageActivity extends AppCompatActivity implements View.OnClickListener{
 
     private ImageView mImageView;
-    private Button uploadImageButton,cropImageButton;
+    private Button uploadImageButton;
     private Uri myUri;
     private DataBaseHandler helper;
     private ProgressBar progressBar;
@@ -50,7 +50,6 @@ public class UploadingPageActivity extends AppCompatActivity implements View.OnC
         progressBar = (ProgressBar) findViewById(R.id.progressBar);
         mImageView = (ImageView) findViewById(R.id.uploadImage);
         uploadImageButton = (Button) findViewById(R.id.uploadButton);
-        cropImageButton = (Button) findViewById(R.id.cropButton);
 
 
         progressBar.setVisibility(View.GONE);
@@ -68,7 +67,6 @@ public class UploadingPageActivity extends AppCompatActivity implements View.OnC
 
     private void setOnClickListner(){
         uploadImageButton.setOnClickListener(this);
-        cropImageButton.setOnClickListener(this);
     }
 
     private void setImageView(int index,String uri){
@@ -105,55 +103,8 @@ public class UploadingPageActivity extends AppCompatActivity implements View.OnC
             case R.id.uploadButton:
                 uploadImageToServer();
                 break;
-            case R.id.cropButton:
-                performCrop();
-                break;
             default:
                 break;
-        }
-    }
-
-    private void performCrop(){
-        try {
-            Intent cropIntent = new Intent("com.android.camera.action.CROP");
-            // indicate image type and Uri
-            cropIntent.setDataAndType(myUri, "image/*");
-            // set crop properties here
-            cropIntent.putExtra("crop", true);
-            // indicate aspect of desired crop
-            cropIntent.putExtra("aspectX", 1);
-            cropIntent.putExtra("aspectY", 1);
-            // indicate output X and Y
-            cropIntent.putExtra("outputX", 128);
-            cropIntent.putExtra("outputY", 128);
-            // retrieve data on return
-            cropIntent.putExtra("return-data", true);
-            // start the activity - we handle returning in onActivityResult
-            startActivityForResult(cropIntent, PIC_CROP);
-        }
-        catch(ActivityNotFoundException anfe){
-            //display an error message
-            String errorMessage = "Whoops - your device doesn't support the crop action!";
-            Toast toast = Toast.makeText(this, errorMessage, Toast.LENGTH_SHORT);
-            toast.show();
-        }
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == PIC_CROP && resultCode == RESULT_OK && data != null && data.getData() != null) {
-
-            Uri uri = data.getData();
-            try {
-                Bitmap bitmap = MediaStore.Images.Media.getBitmap(getContentResolver(), uri);
-                if(bitmap!=null) {
-                    mImageView.setImageBitmap(bitmap);
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
         }
     }
 
